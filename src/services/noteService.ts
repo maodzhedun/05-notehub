@@ -6,7 +6,7 @@ const API_URL = 'https://notehub-public.goit.study/api/notes';
 
 interface NoteHttpResponse {
   notes: Note[];
-  total: number;
+  totalPages: number;
   page: number;
   perPage: number;
 }
@@ -23,8 +23,8 @@ export const fetchNotes = async (params: FetchNotesParams) => {
     },
     params: { search: params.search, page: params.page, perPage: 10 },
   });
-  console.log(response.data)
-  return response.data.notes;
+  // console.log(response.data);
+  return response.data;
 };
 
 export const createNote = async (

@@ -1,23 +1,43 @@
-// import { useState } from 'react';
-// import axios from 'axios';
+import { useState } from 'react';
+
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import css from './App.module.css';
 import SearchBox from '../SearchBox/SearchBox';
 import NoteList from '../NoteList/NoteList';
-import { fetchNotes } from '../../../services/noteService';
-import type { Note } from '../../../types/note';
+import { fetchNotes } from '../../services/noteService';
+import Modal from '../Modal/Modal';
+
+import Pagination from '../Pagination/Pagination';
 // import type { Note } from '../../../types/note';
 
 function App() {
   // const [notes, setNotes] = useState<Note[]>([]);
   // const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { data: notes=[], isFetching } = useQuery<Note[]>({
-    queryKey: ['notes'],
-    queryFn: () => fetchNotes({ page: 1, search: '' }),
+  const openModal = (notes: Note) => {
+    // setSelectedMovie(movie);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    // setSelectedMovie(null);
+  };
+
+  const { data, isFetching } = useQuery({
+    queryKey: ['notes', currentPage],
+    queryFn: () => fetchNotes({ page: currentPage, search: '' }),
     // enabled: !!query,
     placeholderData: keepPreviousData,
   });
+
+  // console.log(data);
+
+  const notes = data?.notes ?? [];
+
+  const totalPages = data?.totalPages ?? 0;
 
   return (
     <>
@@ -25,10 +45,19 @@ function App() {
         <header className={css.toolbar}>
           {isFetching && <div>Loading posts...</div>}
           {<SearchBox />}
-          {/* Пагінація */}
-          {/* Кнопка створення нотатки */}
+
+          {totalPages > 1 && (
+            <Pagination
+              pageCount={totalPages}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+            />
+          )}
+
+          {<button className={css.button} onClick={openModal}>Create note +</button>}
         </header>
-        <NoteList notes={notes} />
+        {notes.length > 0 && <NoteList notes={notes} />}
+        {isModalOpen && <Modal onClose={closeModal} />}
       </div>
     </>
   );

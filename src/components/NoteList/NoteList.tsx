@@ -1,4 +1,4 @@
-import type { Note } from '../../../types/note';
+import type { Note } from '../../types/note';
 import css from './NoteList.module.css';
 
 interface NoteListProps {
@@ -6,7 +6,7 @@ interface NoteListProps {
 }
 
 export default function NoteList({ notes }: NoteListProps) {
-    console.log(notes)
+    // console.log(notes)
   if (!notes || notes.length === 0) {
     return <div>No notes found.</div>;
   }
@@ -20,7 +20,7 @@ export default function NoteList({ notes }: NoteListProps) {
             <h2 className={css.title}>{note.title}</h2>
             <p className={css.content}>{note.content}</p>
             <div className={css.footer}>
-              <span className={css.tag}>{note.tags}</span>
+              <span className={css.tag}>{note.tag}</span>
               <button className={css.button}>Delete</button>
             </div>
           </li>
