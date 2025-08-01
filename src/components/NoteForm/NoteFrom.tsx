@@ -1,5 +1,5 @@
 // import type { Note } from '../../types/note';
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
+import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from 'formik';
 import { useId } from 'react';
 
 import css from './NoteForm.module.css';
