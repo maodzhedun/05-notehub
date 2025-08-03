@@ -11,12 +11,9 @@ interface NoteListProps {
 }
 
 export default function NoteList({ notes }: NoteListProps) {
-  if (!notes || notes.length === 0) {
-    return <div>No notes found.</div>;
-  }
-
+  
   const queryClient = useQueryClient();
-
+  
   const deleteNoteMutation = useMutation({
     mutationFn: deleteNote,
     onSuccess: () => {
@@ -24,11 +21,15 @@ export default function NoteList({ notes }: NoteListProps) {
       console.log('Note deleted successfully');
     },
   });
-
+  
   const handleDelete = (id: string) => {
     deleteNoteMutation.mutate(id);
   };
-
+  
+  if (!notes || notes.length === 0) {
+    return <div>No notes found.</div>;
+  }
+  
   return (
     <div>
       <h2>NoteList</h2>
