@@ -7,13 +7,11 @@ import css from './NoteList.module.css';
 interface NoteListProps {
   notes: Note[];
   onDelete?: (id: string) => void;
-  onEdit?: (note: Note) => void;
 }
 
 export default function NoteList({ notes }: NoteListProps) {
-  
   const queryClient = useQueryClient();
-  
+
   const deleteNoteMutation = useMutation({
     mutationFn: deleteNote,
     onSuccess: () => {
@@ -21,15 +19,15 @@ export default function NoteList({ notes }: NoteListProps) {
       console.log('Note deleted successfully');
     },
   });
-  
+
   const handleDelete = (id: string) => {
     deleteNoteMutation.mutate(id);
   };
-  
+
   if (!notes || notes.length === 0) {
     return <div>No notes found.</div>;
   }
-  
+
   return (
     <div>
       <h2>NoteList</h2>

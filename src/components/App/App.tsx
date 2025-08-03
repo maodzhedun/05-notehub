@@ -38,11 +38,7 @@ function App() {
     console.log('Search value:', value);
   };
 
-  // const notes = data?.notes ?? [];
-
   const totalPages = data?.totalPages ?? 0;
-
-  // console.log(notes);
 
   return (
     <>
