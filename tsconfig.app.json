@@ -23,5 +23,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "services", "types"]
+  "include": ["src", "src/services", "src/types"]
 }

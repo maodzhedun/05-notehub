@@ -6,7 +6,7 @@ const API_URL = 'https://notehub-public.goit.study/api/notes';
 
 interface NoteHttpResponse {
   notes: Note[];
-  totalPages: number;
+  total: number;
   page: number;
   perPage: number;
 }
@@ -23,7 +23,6 @@ export const fetchNotes = async (params: FetchNotesParams) => {
     },
     params: { search: params.search, page: params.page, perPage: 10 },
   });
-  // console.log(response.data);
   return response.data;
 };
 
@@ -46,15 +45,3 @@ export const deleteNote = async (id: string) => {
   });
   return response.data;
 };
-
-export const updateNote = async (
-  id: string, 
-  note: Omit<Note, 'id' | 'createdAt' | 'updatedAt'>
-) => {
-  const response = await axios.put<Note>(`${API_URL}/${id}`, note, {
-    headers: {
-      Authorization: `Bearer ${myKey}`,
-    },
-  });
-  return response.data;
-}
