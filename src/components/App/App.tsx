@@ -45,6 +45,8 @@ function App() {
 
   const totalPages = data?.totalPages ?? 0;
 
+  console.log(notes);
+
   return (
     <>
       <div className={css.app}>
