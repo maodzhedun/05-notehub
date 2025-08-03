@@ -6,10 +6,7 @@ import SearchBox from '../SearchBox/SearchBox';
 import NoteList from '../NoteList/NoteList';
 import { fetchNotes } from '../../services/noteService';
 import Modal from '../Modal/Modal';
-// import type { Note } from '../../types/note';
-
 import Pagination from '../Pagination/Pagination';
-
 import Loader from '../Loader/Loader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
