@@ -6,7 +6,7 @@ const API_URL = 'https://notehub-public.goit.study/api/notes';
 
 interface NoteHttpResponse {
   notes: Note[];
-  total: number;
+  totalPages: number;
   page: number;
   perPage: number;
 }

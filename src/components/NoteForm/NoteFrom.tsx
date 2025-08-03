@@ -38,7 +38,7 @@ const NoteFormSchema = Yup.object().shape({
     .required('Tag is required'),
 });
 
-export default function NoteForm({ onClose, note }: NoteFormProps) {
+export default function NoteForm({ onClose }: NoteFormProps) {
   const qeryClient = useQueryClient();
   const createNoteMutation = useMutation({
     mutationFn: createNote,
