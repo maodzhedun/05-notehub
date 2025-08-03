@@ -25,7 +25,7 @@ function App() {
 
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
 
-  const { data, isFetching, isLoading, isError } = useQuery({
+  const { data, isFetching, isLoading, isError, isSuccess } = useQuery({
     queryKey: ['notes', currentPage, debouncedSearchQuery],
     queryFn: () =>
       fetchNotes({ page: currentPage, search: debouncedSearchQuery }),
@@ -38,11 +38,11 @@ function App() {
     console.log('Search value:', value);
   };
 
-  const notes = data?.notes ?? [];
+  // const notes = data?.notes ?? [];
 
   const totalPages = data?.totalPages ?? 0;
 
-  console.log(notes);
+  // console.log(notes);
 
   return (
     <>
@@ -50,7 +50,7 @@ function App() {
         <header className={css.toolbar}>
           {<SearchBox onSearch={handleSearch} />}
 
-          {totalPages > 1 && (
+          {isSuccess && totalPages > 1 && (
             <Pagination
               pageCount={totalPages}
               currentPage={currentPage}
@@ -64,9 +64,9 @@ function App() {
             </button>
           }
         </header>
-        {notes.length > 0 && <NoteList notes={notes} />}
+        {data && data.notes.length > 0 && <NoteList notes={data?.notes} />}
         {isModalOpen && <Modal onClose={closeModal} note={null} />}
-        {isLoading && isFetching && <Loader />}
+        {(isLoading || isFetching) && <Loader />}
         {isError && <ErrorMessage />}
       </div>
     </>
