@@ -6,6 +6,7 @@ import SearchBox from '../SearchBox/SearchBox';
 import NoteList from '../NoteList/NoteList';
 import { fetchNotes } from '../../services/noteService';
 import Modal from '../Modal/Modal';
+import NoteFrom from '../NoteForm/NoteFrom';
 import Pagination from '../Pagination/Pagination';
 import Loader from '../Loader/Loader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
@@ -48,7 +49,7 @@ function App() {
 
           {isSuccess && totalPages > 1 && (
             <Pagination
-              pageCount={totalPages}
+              totalNumberOfPages={totalPages}
               currentPage={currentPage}
               onPageChange={setCurrentPage}
             />
@@ -61,7 +62,11 @@ function App() {
           }
         </header>
         {data && data.notes.length > 0 && <NoteList notes={data?.notes} />}
-        {isModalOpen && <Modal onClose={closeModal} note={null} />}
+        {isModalOpen && (
+          <Modal onClose={closeModal}>
+            <NoteFrom onClose={closeModal} note={null} />
+          </Modal>
+        )}
         {(isLoading || isFetching) && <Loader />}
         {isError && <ErrorMessage />}
       </div>
